@@ -9,6 +9,7 @@ services:
 addons:
   hosts:
   - rabbit
+  - hare
   
 install:
   - sudo rabbitmq-plugins enable rabbitmq_management
