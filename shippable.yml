@@ -6,14 +6,22 @@ python:
 services:
   - rabbitmq
 
+addons:
+  hosts:
+  - rabbit
+  
 install:
-  - rabbitmq-plugins enable rabbitmq_management
+  - sudo rabbitmq-plugins enable rabbitmq_management
+  - sudo rabbitmq-plugins enable rabbitmq_federation
+  - sudo rabbitmq-plugins enable rabbitmq_federation_management
+  - sudo service rabbitmq-server restart
   - pip install -r requirements.txt
 
 # Make folders for the reports
 before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
+  - sudo RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS="-rabbitmq_management listener [{port,15673}]" RABBITMQ_NODENAME=hare rabbitmq-server -detached
 
 script:
   - nosetests test.py --with-xunit --xunit-file=shippable/testresults/nosetests.xml
