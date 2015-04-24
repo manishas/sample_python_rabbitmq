@@ -6,6 +6,9 @@ python:
 services:
   - rabbitmq
 
+before_install:
+  - rabbitmq-plugins enable rabbitmq_management
+
 install:
   - pip install -r requirements.txt
 
