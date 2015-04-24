@@ -6,10 +6,8 @@ python:
 services:
   - rabbitmq
 
-before_install:
-  - rabbitmq-plugins enable rabbitmq_management
-
 install:
+  - rabbitmq-plugins enable rabbitmq_management
   - pip install -r requirements.txt
 
 # Make folders for the reports
